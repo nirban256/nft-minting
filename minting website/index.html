@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <html>
+
+    <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Moralis SDK code -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
+
+    <title>BURNING ECHIDNA Minting</title>
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <h1 class="name">Burning Echidna</h1>
+            <button class="menu" id="mobile-menu">
+                <img src="./assets/icon-hamburger.svg" alt="hamburger-icon">
+            </button>
+            <ul class="nav-ul" id="login">
+                <button class="btn-login" id="btn-login">Connect to Wallet</button>
+                <button id="btn-logout">Logout</button>
+            </ul>
+        </nav>
+
+        <main>
+            <div class="flex-box">
+                <div class="card">
+                    <img src="./assets/sunset.jpg" alt="NFT-image" class="nft" width="100" height="100">
+                    <div class="text">
+                        NFts by <span class="name">Burning Echidna</span>
+                    </div>
+                </div>
+                <div class="price">
+                    <button id="decrease">-</button>
+                    <span id="value">1</span>
+                    <button id="increase">+</button>
+                    <button class="mint">Mint</button>
+                    <img src="./assets/icon.svg" alt="" class="logo">
+                    <span id="price">1.1</span>
+                </div>
+            </div>
+
+            <div class="time">
+                <span class="time-span">
+                    <div class="time-div">
+                        <b>00</b>
+                    </div>
+                    <span>
+                        Days
+                    </span>
+                </span>
+                <span class="time-span">
+                    <div class="time-div">
+                        <b>00</b>
+                    </div>
+                    <span>
+                        Hours
+                    </span>
+                </span>
+                <span class="time-span">
+                    <div class="time-div">
+                        <b>00</b>
+                    </div>
+                    <span>
+                        Minutes
+                    </span>
+                </span>
+                <span class="time-span">
+                    <div class="time-div">
+                        <b>00</b>
+                    </div>
+                    <span>
+                        Seconds
+                    </span>
+                </span>
+            </div>
+        </main>
+    </div>
+
+    <script src="./main.js"></script>
+</body>
+
+</html>
