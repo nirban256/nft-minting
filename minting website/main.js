@@ -13,12 +13,6 @@ async function login() {
 }
 document.getElementById("btn-login").onclick = login;
 
-async function logOut() {
-    await Moralis.User.logOut();
-    console.log("logged out");
-}
-document.getElementById("btn-logout").onclick = logOut;
-
 
 // increase and decrease function
 const value = document.getElementById('value');
