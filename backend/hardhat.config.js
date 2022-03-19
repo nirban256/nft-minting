@@ -1,4 +1,6 @@
 require("@nomiclabs/hardhat-waffle");
+require("@nomiclabs/hardhat-ethers");
+require('@nomiclabs/hardhat-etherscan');
 require('@openzeppelin/hardhat-upgrades');
 const dotenv = require("dotenv");
 
@@ -21,11 +23,15 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  solidity: "0.8.10",
+  solidity: "0.8.7",
+  defaultNetwork: "fuji",
   networks: {
     fuji: {
       url: process.env.API_URL,
       accounts: [process.env.PRIVATE_KEY],
     }
+  },
+  etherscan: {
+    apiKey: process.env.API_KEY
   }
 };

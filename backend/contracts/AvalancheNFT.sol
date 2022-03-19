@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
 contract AvalancheNFT is ERC721URIStorage, Ownable {
-    using Counters for Counters.counter;
+    using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIds;
 
@@ -25,7 +25,7 @@ contract AvalancheNFT is ERC721URIStorage, Ownable {
         totalSupply = 0;
         maxSupply = 10;
         maxPerWallet = 3;
-        withdrawWallet = 0xE00C58c5337Dc82C631c32e4B2C9739E3c221635;
+        withdrawWallet = payable(0xE00C58c5337Dc82C631c32e4B2C9739E3c221635);
     }
 
     function setIsPublicMintEnabled(bool _isPublicMintEnabled)
@@ -63,15 +63,18 @@ contract AvalancheNFT is ERC721URIStorage, Ownable {
         require(success, "withdraw failed");
     }
 
-    function mintNFT(address recipient, string memory tokenURI)
-        public
-        onlyOwner
-        returns (uint256)
-    {
-        _tokenIds.increment();
-        uint256 newTokenId = _tokenIds.current();
-        _mint(recipient, newTokenId);
-        _setTokenURI(newTokenId, tokenURI);
-        return newTokenId;
+    function mint(uint256 _quantity) public payable {
+        require(isPublicMintEnabled, "minting not enabled");
+        require(msg.value == _quantity * mintPrice, "wrong mint value");
+        require(totalSupply + _quantity <= maxSupply, "sold out");
+        require(
+            walletMints[msg.sender] + _quantity <= maxPerWallet,
+            "exceeded wallet mint limit"
+        );
+        for (uint256 i = 0; i < _quantity; i++) {
+            uint256 newTokenId = totalSupply + 1;
+            totalSupply++;
+            _safeMint(msg.sender, newTokenId);
+        }
     }
 }
