@@ -1,29 +1,44 @@
 import React, { useState } from 'react';
-import '../App.css';
+import { ethers, BigNumber, Contract } from 'ethers';
+import AvalancheNFT from "../AvalancheNFT.json";
 import icon from '../assets/icon.svg';
 import NFTImage from '../assets/sunset.jpg';
 
-const Mint = ({ authenticate }) => {
+const avalancheNFTAddress = "0xe7eD8AB49aeA19177c510b2F313C330b8d0a78b1";
 
-    const [mintAmount, setMintAmount] = useState();
+const Mint = ({ accounts, setAccounts }) => {
 
-    // increase and decrease function
-    const value = document.getElementById('value');
-    const price = document.getElementById('price');
-    let p = 1.1;
+    const [mintAmount, setMintAmount] = useState(1);
+    const isConnected = Boolean(accounts[0]);
+    const mintPrice = 0.75;
 
-    const increase = () => {
-        document.getElementById('increase').addEventListener("click", (e) => {
-            e.preventDefault();
-            if (parseInt(value.innerHTML) < 5) {
-                let num = parseInt(value.innerHTML);
-                value.innerHTML = num + 1;
-                price.innerHTML = p * value.innerHTML;
+    async function handleMint() {
+        if (window.ethereum) {
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = provider.getSigner();
+            const contract = new ethers.Contract(
+                avalancheNFTAddress,
+                AvalancheNFT.abi,
+                signer
+            );
+            try {
+                const response = await contract.mint(BigNumber.from(mintAmount), {
+                    value: ethers.utils.parseEther((0.75 * mintAmount).toString()),
+                });
+                console.log("response: ", response);
+            } catch (err) {
+                console.log("error: ", err);
             }
-        })
+        }
     }
 
-    const decrease = () => {
+    // increase and decrease function
+    const increment = () => {
+        if (mintAmount >= 3) return;
+        setMintAmount(mintAmount + 1);
+    }
+
+    const decrement = () => {
         if (mintAmount <= 1) return;
         setMintAmount(mintAmount - 1);
     }
@@ -37,14 +52,18 @@ const Mint = ({ authenticate }) => {
                         NFts by <span className="name">Sunset</span>
                     </div>
                 </div>
-                <div className="price">
-                    <button id="decrease" onClick={decrease}>-</button>
-                    <span id="value">1</span>
-                    <button id="increase" onClick={increase}>+</button>
-                    <button className="mint">Mint</button>
-                    <img src={icon} alt="" className="logo" />
-                    <span id="price">1.1</span>
-                </div>
+                {isConnected ? (
+                    <div className="price">
+                        <button id="decrease" onClick={decrement}>-</button>
+                        <span id='value'>{mintAmount}</span>
+                        <button id="increase" onClick={increment}>+</button>
+                        <button className="mint" onClick={handleMint}>Mint</button>
+                        <img src={icon} alt="" className="logo" />
+                        <span id="price">{mintAmount * mintPrice}</span>
+                    </div>
+                ) : (
+                    <p>You need to connect your wallet to mint</p>
+                )}
             </div>
 
             <div className="time">
@@ -85,4 +104,4 @@ const Mint = ({ authenticate }) => {
     )
 }
 
-export default Mint
+export default Mint;
