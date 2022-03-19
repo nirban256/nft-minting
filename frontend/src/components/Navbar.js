@@ -17,7 +17,7 @@ const Navbar = ({ authenticate }) => {
 
     return (
         <div>
-            <h1 className="name">Burning Echidna</h1>
+            <h1 className="name">Sunset</h1>
             <button className="menu" id="mobile-menu" onClick={toggle}>
                 <img src={mobile_menu} alt="hamburger-menu" />
             </button>

@@ -34,7 +34,7 @@ const Mint = ({ authenticate }) => {
                 <div className="card">
                     <img src={NFTImage} alt="NFT" className="nft" width="100" height="100" />
                     <div className="text">
-                        NFts by <span className="name">Burning Echidna</span>
+                        NFts by <span className="name">Sunset</span>
                     </div>
                 </div>
                 <div className="price">
