@@ -27,7 +27,7 @@ const Navbar = ({ accounts, setAccounts }) => {
     }
 
     return (
-        <div>
+        <div className='nav'>
             <h1 className="name">Sunset</h1>
             <button className="menu" id="mobile-menu" onClick={toggle}>
                 <img src={mobile_menu} alt="hamburger-menu" />

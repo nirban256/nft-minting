@@ -4,7 +4,7 @@ import AvalancheNFT from "../AvalancheNFT.json";
 import icon from '../assets/icon.svg';
 import NFTImage from '../assets/sunset.jpg';
 
-const avalancheNFTAddress = "0xe7eD8AB49aeA19177c510b2F313C330b8d0a78b1";
+const avalancheNFTAddress = "0xe1975D27C0Edcb80431F5E384D888C28ff5e609d";
 
 const Mint = ({ accounts, setAccounts }) => {
 
